@@ -1,0 +1,613 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>JustDo - 让任务管理更简单</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --bg-primary: #09090b;
+      --bg-secondary: #18181b;
+      --bg-tertiary: #27272a;
+      --text-primary: #e4e4e7;
+      --text-secondary: #a1a1aa;
+      --text-tertiary: #71717a;
+      --accent: #32F08C;
+      --accent-hover: #28d67a;
+      --nav-bg: rgba(9, 9, 11, 0.9);
+      --card-bg: #18181b;
+      --btn-secondary-bg: transparent;
+      --download-btn-bg: #27272a;
+      --logo-bg: #0A0B0D;
+    }
+
+    .light {
+      --bg-primary: #fafafa;
+      --bg-secondary: #ffffff;
+      --bg-tertiary: #f4f4f5;
+      --text-primary: #18181b;
+      --text-secondary: #52525b;
+      --text-tertiary: #a1a1aa;
+      --accent: #22c55e;
+      --accent-hover: #16a34a;
+      --nav-bg: rgba(250, 250, 250, 0.9);
+      --card-bg: #ffffff;
+      --btn-secondary-bg: transparent;
+      --download-btn-bg: #f4f4f5;
+      --logo-bg: #ffffff;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans SC", "PingFang SC", "Microsoft YaHei", sans-serif;
+      background-color: var(--bg-primary);
+      color: var(--text-primary);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      transition: background-color 0.3s ease, color 0.3s ease;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    /* 导航栏 */
+    nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      background-color: var(--nav-bg);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--bg-tertiary);
+      transition: background-color 0.3s ease, border-color 0.3s ease;
+    }
+
+    .nav-content {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 64px;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .logo-link {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      text-decoration: none;
+    }
+
+    .logo-icon {
+      width: 32px;
+      height: 32px;
+    }
+
+    .logo-text {
+      font-size: 18px;
+      font-weight: 600;
+      color: var(--text-primary);
+    }
+
+    .logo-separator {
+      font-size: 14px;
+      color: var(--text-tertiary);
+      font-weight: 400;
+      margin: 0 4px;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 32px;
+    }
+
+    .nav-links a {
+      font-size: 14px;
+      color: var(--text-secondary);
+      transition: color 0.2s ease;
+    }
+
+    .nav-links a:hover {
+      color: var(--text-primary);
+    }
+
+    .theme-toggle {
+      width: 36px;
+      height: 36px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: none;
+      border: none;
+      cursor: pointer;
+      color: var(--text-secondary);
+      transition: color 0.2s ease;
+    }
+
+    .theme-toggle:hover {
+      color: var(--text-primary);
+    }
+
+    .theme-toggle svg {
+      width: 18px;
+      height: 18px;
+    }
+
+    .nav-btn {
+      padding: 8px 20px;
+      background-color: var(--accent);
+      color: var(--bg-primary);
+      border: none;
+      font-size: 14px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: background-color 0.2s ease;
+    }
+
+    .nav-btn:hover {
+      background-color: var(--accent-hover);
+    }
+
+    /* Hero 区域 */
+    .hero {
+      padding: 160px 0 100px;
+      text-align: center;
+    }
+
+    .hero h1 {
+      font-size: 56px;
+      font-weight: 700;
+      line-height: 1.2;
+      margin-bottom: 20px;
+      letter-spacing: -0.02em;
+    }
+
+    .hero h1 span {
+      color: var(--accent);
+    }
+
+    .hero p {
+      font-size: 18px;
+      color: var(--text-secondary);
+      max-width: 600px;
+      margin: 0 auto 40px;
+    }
+
+    .hero-buttons {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 16px;
+    }
+
+    .btn-primary {
+      padding: 12px 32px;
+      background-color: var(--accent);
+      color: var(--bg-primary);
+      border: none;
+      font-size: 16px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: background-color 0.2s ease;
+    }
+
+    .btn-primary:hover {
+      background-color: var(--accent-hover);
+    }
+
+    .btn-secondary {
+      padding: 12px 32px;
+      background-color: var(--btn-secondary-bg);
+      color: var(--text-primary);
+      border: 1px solid var(--bg-tertiary);
+      font-size: 16px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: border-color 0.2s ease;
+    }
+
+    .btn-secondary:hover {
+      border-color: var(--text-secondary);
+    }
+
+    /* 功能特性 */
+    .features {
+      padding: 100px 0;
+    }
+
+    .section-title {
+      text-align: center;
+      font-size: 36px;
+      font-weight: 600;
+      margin-bottom: 16px;
+    }
+
+    .section-desc {
+      text-align: center;
+      font-size: 16px;
+      color: var(--text-secondary);
+      max-width: 500px;
+      margin: 0 auto 60px;
+    }
+
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 32px;
+    }
+
+    .feature-card {
+      padding: 32px;
+      background-color: var(--card-bg);
+      transition: transform 0.2s ease, background-color 0.3s ease;
+    }
+
+    .feature-card:hover {
+      transform: translateY(-4px);
+    }
+
+    .feature-icon {
+      width: 48px;
+      height: 48px;
+      margin-bottom: 20px;
+      color: var(--accent);
+    }
+
+    .feature-card h3 {
+      font-size: 18px;
+      font-weight: 600;
+      margin-bottom: 12px;
+    }
+
+    .feature-card p {
+      font-size: 14px;
+      color: var(--text-secondary);
+      line-height: 1.7;
+    }
+
+    /* 下载区域 */
+    .download {
+      padding: 100px 0;
+      text-align: center;
+      background-color: var(--bg-secondary);
+      transition: background-color 0.3s ease;
+    }
+
+    .download h2 {
+      font-size: 36px;
+      font-weight: 600;
+      margin-bottom: 16px;
+    }
+
+    .download p {
+      font-size: 16px;
+      color: var(--text-secondary);
+      margin-bottom: 40px;
+    }
+
+    .download-buttons {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 20px;
+    }
+
+    .download-btn {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 16px 28px;
+      background-color: var(--download-btn-bg);
+      border: 1px solid var(--bg-tertiary);
+      cursor: pointer;
+      transition: border-color 0.2s ease, background-color 0.3s ease;
+    }
+
+    .download-btn:hover {
+      border-color: var(--text-secondary);
+    }
+
+    .download-btn svg {
+      width: 24px;
+      height: 24px;
+      color: var(--text-primary);
+    }
+
+    .download-btn-text {
+      text-align: left;
+    }
+
+    .download-btn-text small {
+      display: block;
+      font-size: 12px;
+      color: var(--text-tertiary);
+    }
+
+    .download-btn-text span {
+      font-size: 16px;
+      font-weight: 500;
+      color: var(--text-primary);
+    }
+
+    /* 页脚 */
+    footer {
+      padding: 40px 0;
+      border-top: 1px solid var(--bg-tertiary);
+      transition: border-color 0.3s ease;
+    }
+
+    .footer-content {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .footer-left {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 14px;
+      color: var(--text-tertiary);
+    }
+
+    .footer-left svg {
+      width: 20px;
+      height: 20px;
+    }
+
+    .footer-links {
+      display: flex;
+      align-items: center;
+      gap: 24px;
+    }
+
+    .footer-links a {
+      font-size: 14px;
+      color: var(--text-tertiary);
+      transition: color 0.2s ease;
+    }
+
+    .footer-links a:hover {
+      color: var(--text-secondary);
+    }
+
+    /* 响应式 */
+    @media (max-width: 768px) {
+      .hero h1 {
+        font-size: 36px;
+      }
+
+      .hero p {
+        font-size: 16px;
+      }
+
+      .features-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .nav-links {
+        display: none;
+      }
+
+      .download-buttons {
+        flex-direction: column;
+      }
+
+      .footer-content {
+        flex-direction: column;
+        gap: 20px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- 导航栏 -->
+  <nav>
+    <div class="container nav-content">
+      <div class="logo">
+        <a href="#" class="logo-link">
+          <img src="icon.ico" alt="JustDo Logo" class="logo-icon">
+          <span class="logo-text">JustDo</span>
+        </a>
+        <span class="logo-separator">by</span>
+        <a href="https://www.trae.cn/solo" target="_blank" class="logo-link">
+          <svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" class="logo-icon">
+            <rect width="32" height="32" rx="6" fill="var(--logo-bg)"/>
+            <path d="M26.6677 23.7149H8.38057V20.6496H5.33301V8.38159H26.6677V23.7149ZM8.38057 20.6496H23.6201V11.4482H8.38057V20.6496ZM16.0011 16.0021L13.8461 18.1705L11.6913 16.0021L13.8461 13.8337L16.0011 16.0021ZM22.0963 16.0008L19.9414 18.1691L17.7865 16.0008L19.9414 13.8324L22.0963 16.0008Z" fill="#32F08C"/>
+          </svg>
+          <span class="logo-text">Trae Solo</span>
+        </a>
+      </div>
+      <div class="nav-links">
+        <a href="#features">功能</a>
+        <a href="#download">下载</a>
+        <a href="https://github.com/bainano/JustDo" target="_blank">GitHub</a>
+        <button class="theme-toggle" onclick="toggleTheme()" aria-label="切换主题">
+          <svg class="sun-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="5"></circle>
+            <path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"></path>
+          </svg>
+          <svg class="moon-icon" style="display:none" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+          </svg>
+        </button>
+        <button class="nav-btn" onclick="location.href='#download'">立即下载</button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero 区域 -->
+  <section class="hero">
+    <div class="container">
+      <h1>让任务管理<span>更简单</span></h1>
+      <p>JustDo 是一款简洁优雅的跨平台待办事项桌面应用，帮助你高效管理日常任务，专注于最重要的事情。</p>
+      <div class="hero-buttons">
+        <button class="btn-primary" onclick="location.href='#download'">免费下载</button>
+        <button class="btn-secondary" onclick="location.href='#features'">了解更多</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- 功能特性 -->
+  <section class="features" id="features">
+    <div class="container">
+      <h2 class="section-title">核心功能</h2>
+      <p class="section-desc">简洁而不简单，每一个功能都为你精心打磨</p>
+      <div class="features-grid">
+        <div class="feature-card">
+          <svg class="feature-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M9 11l3 3L22 4"></path>
+            <path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"></path>
+          </svg>
+          <h3>任务管理</h3>
+          <p>创建、编辑、删除待办任务，支持标记完成状态，轻松管理你的日常事务。</p>
+        </div>
+        <div class="feature-card">
+          <svg class="feature-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M4 6h16M4 12h16M4 18h16"></path>
+          </svg>
+          <h3>任务分类</h3>
+          <p>按紧急/重要程度分类管理任务，帮助你优先处理最关键的事项。</p>
+        </div>
+        <div class="feature-card">
+          <svg class="feature-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="11" cy="11" r="8"></circle>
+            <path d="M21 21l-4.35-4.35"></path>
+          </svg>
+          <h3>智能筛选</h3>
+          <p>支持按状态、日期等条件筛选任务，快速找到你需要的内容。</p>
+        </div>
+        <div class="feature-card">
+          <svg class="feature-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M3 6h18M3 12h18M3 18h18"></path>
+          </svg>
+          <h3>回收站</h3>
+          <p>误删任务可恢复，支持清空回收站，给你的操作多一份保障。</p>
+        </div>
+        <div class="feature-card">
+          <svg class="feature-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="5"></circle>
+            <path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"></path>
+          </svg>
+          <h3>暗黑模式</h3>
+          <p>支持明暗主题切换，保护你的眼睛，适应不同使用场景。</p>
+        </div>
+        <div class="feature-card">
+          <svg class="feature-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect>
+            <path d="M8 21h8M12 17v4"></path>
+          </svg>
+          <h3>跨平台</h3>
+          <p>支持 Windows 和 macOS 系统，随时随地管理你的任务。</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 下载区域 -->
+  <section class="download" id="download">
+    <div class="container">
+      <h2>立即下载</h2>
+      <p>选择适合你系统的版本，开始高效管理任务</p>
+      <div class="download-buttons">
+        <a href="https://github.com/bainano/JustDo/releases" class="download-btn" target="_blank">
+          <svg viewBox="0 0 24 24" fill="currentColor">
+            <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0112 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+          </svg>
+          <div class="download-btn-text">
+            <small>下载源码</small>
+            <span>GitHub</span>
+          </div>
+        </a>
+        <a href="https://github.com/bainano/JustDo/releases" class="download-btn" target="_blank">
+          <svg viewBox="0 0 24 24" fill="currentColor">
+            <path d="M5 3h6v6H5zm7 0h6v6h-6zm-7 7h6v6H5zm7 0h6v6h-6z"/>
+          </svg>
+          <div class="download-btn-text">
+            <small>Windows 版本</small>
+            <span>下载安装包</span>
+          </div>
+        </a>
+        <a href="https://github.com/bainano/JustDo/releases" class="download-btn" target="_blank">
+          <svg viewBox="0 0 24 24" fill="currentColor">
+            <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/>
+          </svg>
+          <div class="download-btn-text">
+            <small>macOS 版本</small>
+            <span>下载安装包</span>
+          </div>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- 页脚 -->
+  <footer>
+    <div class="container footer-content">
+      <div class="footer-left">
+        <img src="icon.ico" alt="JustDo Logo" class="logo-icon">
+        <span>© 2026 JustDo. All rights reserved.</span>
+      </div>
+      <div class="footer-links">
+        <a href="https://github.com/bainano/JustDo" target="_blank">GitHub</a>
+        <a href="#features">功能</a>
+        <a href="#download">下载</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    function toggleTheme() {
+      const html = document.documentElement;
+      const sunIcon = document.querySelector('.sun-icon');
+      const moonIcon = document.querySelector('.moon-icon');
+      if (html.classList.contains('light')) {
+        html.classList.remove('light');
+        sunIcon.style.display = 'block';
+        moonIcon.style.display = 'none';
+        localStorage.setItem('theme', 'dark');
+      } else {
+        html.classList.add('light');
+        sunIcon.style.display = 'none';
+        moonIcon.style.display = 'block';
+        localStorage.setItem('theme', 'light');
+      }
+    }
+
+    (function() {
+      const savedTheme = localStorage.getItem('theme');
+      const sunIcon = document.querySelector('.sun-icon');
+      const moonIcon = document.querySelector('.moon-icon');
+      if (savedTheme === 'light') {
+        document.documentElement.classList.add('light');
+        sunIcon.style.display = 'none';
+        moonIcon.style.display = 'block';
+      }
+    })();
+  </script>
+</body>
+</html>
