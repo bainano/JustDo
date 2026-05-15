@@ -2,7 +2,7 @@
   "name": "JustDo",
   "productName": "JustDo",
   "private": true,
-  "version": "1.0.1",
+  "version": "1.0.2",
   "type": "module",
   "main": "electron/main.js",
   "scripts": {
@@ -20,7 +20,7 @@
     "appId": "com.example.justdo",
     "productName": "JustDo",
     "directories": {
-      "output": "release-1.0.1"
+      "output": "release-1.0.2"
     },
     "files": [
       "dist/**/*",
