@@ -26,6 +26,7 @@
       --btn-secondary-bg: transparent;
       --download-btn-bg: #27272a;
       --logo-bg: #0A0B0D;
+      --border-color: #3f3f46;
     }
 
     .light {
@@ -42,6 +43,7 @@
       --btn-secondary-bg: transparent;
       --download-btn-bg: #f4f4f5;
       --logo-bg: #ffffff;
+      --border-color: #e4e4e7;
     }
 
     html {
@@ -235,7 +237,7 @@
       border-color: var(--text-secondary);
     }
 
-    /* 功能特性 */
+    /* 功能特性 - 详细版 */
     .features {
       padding: 100px 0;
     }
@@ -251,51 +253,223 @@
       text-align: center;
       font-size: 16px;
       color: var(--text-secondary);
-      max-width: 500px;
+      max-width: 600px;
       margin: 0 auto 60px;
     }
 
-    .features-grid {
+    .feature-block {
+      margin-bottom: 100px;
+    }
+
+    .feature-block:last-child {
+      margin-bottom: 0;
+    }
+
+    .feature-block-header {
+      display: flex;
+      align-items: center;
+      gap: 24px;
+      margin-bottom: 40px;
+    }
+
+    .feature-block-icon {
+      width: 64px;
+      height: 64px;
+      padding: 16px;
+      background-color: var(--card-bg);
+      flex-shrink: 0;
+      color: var(--accent);
+    }
+
+    .feature-block-title-group h3 {
+      font-size: 28px;
+      font-weight: 600;
+      margin-bottom: 8px;
+    }
+
+    .feature-block-title-group p {
+      font-size: 16px;
+      color: var(--text-secondary);
+    }
+
+    .feature-content {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 40px;
+    }
+
+    .feature-detail-card {
+      padding: 32px;
+      background-color: var(--card-bg);
+    }
+
+    .feature-detail-card h4 {
+      font-size: 18px;
+      font-weight: 600;
+      margin-bottom: 16px;
+      color: var(--accent);
+    }
+
+    .feature-detail-card p {
+      font-size: 14px;
+      color: var(--text-secondary);
+      line-height: 1.8;
+    }
+
+    .feature-list {
+      list-style: none;
+      padding: 0;
+    }
+
+    .feature-list li {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      padding: 12px 0;
+      font-size: 14px;
+      color: var(--text-secondary);
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    .feature-list li:last-child {
+      border-bottom: none;
+    }
+
+    .feature-list li::before {
+      content: "✓";
+      color: var(--accent);
+      font-weight: 600;
+      flex-shrink: 0;
+    }
+
+    /* 场景应用 */
+    .scenario-section {
+      padding: 100px 0;
+      background-color: var(--bg-secondary);
+      transition: background-color 0.3s ease;
+    }
+
+    .scenario-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
       gap: 32px;
+      margin-top: 60px;
     }
 
-    .feature-card {
+    .scenario-card {
       padding: 32px;
       background-color: var(--card-bg);
       transition: transform 0.2s ease, background-color 0.3s ease;
     }
 
-    .feature-card:hover {
+    .scenario-card:hover {
       transform: translateY(-4px);
     }
 
-    .feature-icon {
+    .scenario-icon {
       width: 48px;
       height: 48px;
       margin-bottom: 20px;
       color: var(--accent);
     }
 
-    .feature-card h3 {
+    .scenario-card h3 {
       font-size: 18px;
       font-weight: 600;
       margin-bottom: 12px;
     }
 
-    .feature-card p {
+    .scenario-card p {
       font-size: 14px;
       color: var(--text-secondary);
       line-height: 1.7;
+    }
+
+    /* 优势对比 */
+    .comparison-section {
+      padding: 100px 0;
+    }
+
+    .comparison-table {
+      width: 100%;
+      margin-top: 60px;
+      border-collapse: collapse;
+    }
+
+    .comparison-table th,
+    .comparison-table td {
+      padding: 20px;
+      text-align: left;
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    .comparison-table th {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--text-primary);
+      background-color: var(--card-bg);
+    }
+
+    .comparison-table td {
+      font-size: 14px;
+      color: var(--text-secondary);
+    }
+
+    .comparison-table .highlight {
+      color: var(--accent);
+      font-weight: 500;
+    }
+
+    /* 快速入手 */
+    .quickstart-section {
+      padding: 100px 0;
+      background-color: var(--bg-secondary);
+      transition: background-color 0.3s ease;
+    }
+
+    .quickstart-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 32px;
+      margin-top: 60px;
+    }
+
+    .quickstart-card {
+      text-align: center;
+      padding: 32px 24px;
+      background-color: var(--card-bg);
+    }
+
+    .quickstart-number {
+      width: 48px;
+      height: 48px;
+      margin: 0 auto 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-color: var(--accent);
+      color: var(--bg-primary);
+      font-size: 20px;
+      font-weight: 600;
+      border-radius: 50%;
+    }
+
+    .quickstart-card h4 {
+      font-size: 16px;
+      font-weight: 600;
+      margin-bottom: 12px;
+    }
+
+    .quickstart-card p {
+      font-size: 14px;
+      color: var(--text-secondary);
+      line-height: 1.6;
     }
 
     /* 下载区域 */
     .download {
       padding: 100px 0;
       text-align: center;
-      background-color: var(--bg-secondary);
-      transition: background-color 0.3s ease;
     }
 
     .download h2 {
@@ -397,6 +571,16 @@
     }
 
     /* 响应式 */
+    @media (max-width: 1024px) {
+      .feature-content {
+        grid-template-columns: 1fr;
+      }
+
+      .quickstart-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
     @media (max-width: 768px) {
       .hero h1 {
         font-size: 36px;
@@ -406,12 +590,16 @@
         font-size: 16px;
       }
 
-      .features-grid {
+      .nav-links {
+        display: none;
+      }
+
+      .scenario-grid {
         grid-template-columns: 1fr;
       }
 
-      .nav-links {
-        display: none;
+      .quickstart-grid {
+        grid-template-columns: 1fr;
       }
 
       .download-buttons {
@@ -421,6 +609,20 @@
       .footer-content {
         flex-direction: column;
         gap: 20px;
+      }
+
+      .feature-block-header {
+        flex-direction: column;
+        text-align: center;
+      }
+
+      .comparison-table {
+        font-size: 12px;
+      }
+
+      .comparison-table th,
+      .comparison-table td {
+        padding: 12px 8px;
       }
     }
   </style>
@@ -445,6 +647,8 @@
       </div>
       <div class="nav-links">
         <a href="#features">功能</a>
+        <a href="#scenarios">场景</a>
+        <a href="#comparison">对比</a>
         <a href="#download">下载</a>
         <a href="https://github.com/bainano/JustDo" target="_blank">GitHub</a>
         <button class="theme-toggle" onclick="toggleTheme()" aria-label="切换主题">
@@ -473,57 +677,296 @@
     </div>
   </section>
 
-  <!-- 功能特性 -->
+  <!-- 功能特性 - 详细版 -->
   <section class="features" id="features">
     <div class="container">
       <h2 class="section-title">核心功能</h2>
-      <p class="section-desc">简洁而不简单，每一个功能都为你精心打磨</p>
-      <div class="features-grid">
-        <div class="feature-card">
-          <svg class="feature-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <p class="section-desc">每一个功能都经过精心设计，只为让你的任务管理更加高效便捷</p>
+
+      <!-- 功能块1: 智能任务管理 -->
+      <div class="feature-block">
+        <div class="feature-block-header">
+          <svg class="feature-block-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
             <path d="M9 11l3 3L22 4"></path>
             <path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"></path>
           </svg>
-          <h3>任务管理</h3>
-          <p>创建、编辑、删除待办任务，支持标记完成状态，轻松管理你的日常事务。</p>
+          <div class="feature-block-title-group">
+            <h3>智能任务管理</h3>
+            <p>轻松创建、编辑、追踪任务，不遗漏任何重要事项</p>
+          </div>
         </div>
-        <div class="feature-card">
-          <svg class="feature-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M4 6h16M4 12h16M4 18h16"></path>
+        <div class="feature-content">
+          <div class="feature-detail-card">
+            <h4>核心特性</h4>
+            <ul class="feature-list">
+              <li>快速添加任务，回车即可创建</li>
+              <li>支持任务详情描述，记录更多细节</li>
+              <li>一键标记完成状态，划掉已完成事项</li>
+              <li>设置截止日期，自动追踪逾期任务</li>
+            </ul>
+          </div>
+          <div class="feature-detail-card">
+            <h4>用户价值</h4>
+            <p>将碎片化的想法快速转化为可执行的任务，避免重要事项被遗忘。通过清晰的任务列表，你能够一目了然地了解今日工作进度，合理分配时间和精力。</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- 功能块2: 四象限优先级 -->
+      <div class="feature-block">
+        <div class="feature-block-header">
+          <svg class="feature-block-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
           </svg>
-          <h3>任务分类</h3>
-          <p>按紧急/重要程度分类管理任务，帮助你优先处理最关键的事项。</p>
+          <div class="feature-block-title-group">
+            <h3>四象限优先级管理</h3>
+            <p>基于重要紧急程度的任务分类，优先处理关键事务</p>
+          </div>
         </div>
-        <div class="feature-card">
-          <svg class="feature-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <circle cx="11" cy="11" r="8"></circle>
-            <path d="M21 21l-4.35-4.35"></path>
+        <div class="feature-content">
+          <div class="feature-detail-card">
+            <h4>紧急标记 🔥</h4>
+            <p>将任务标记为紧急状态，红色火焰标识醒目提示。无论任务重要与否，紧急标记确保你不会错过时间敏感型工作，如即将到期的项目、临时的客户需求等。</p>
+          </div>
+          <div class="feature-detail-card">
+            <h4>重要标记 ⭐</h4>
+            <p>为重要任务加星标，金色星星凸显关键事项。重要但不紧急的任务往往对长期目标有重大影响，通过星标可以确保这些战略性的重要工作不会被日常琐事淹没。</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- 功能块3: 拖拽操作 -->
+      <div class="feature-block">
+        <div class="feature-block-header">
+          <svg class="feature-block-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+            <polyline points="14 2 14 8 20 8"></polyline>
+            <line x1="12" y1="18" x2="12" y2="12"></line>
+            <line x1="9" y1="15" x2="15" y2="15"></line>
           </svg>
-          <h3>智能筛选</h3>
-          <p>支持按状态、日期等条件筛选任务，快速找到你需要的内容。</p>
+          <div class="feature-block-title-group">
+            <h3>拖拽式交互</h3>
+            <p>直观的拖拽操作，快速调整任务状态和分类</p>
+          </div>
         </div>
-        <div class="feature-card">
-          <svg class="feature-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M3 6h18M3 12h18M3 18h18"></path>
+        <div class="feature-content">
+          <div class="feature-detail-card">
+            <h4>拖拽操作</h4>
+            <ul class="feature-list">
+              <li>拖拽任务到紧急，快速标记紧急状态</li>
+              <li>拖拽任务到重要，一键加星标</li>
+              <li>拖拽任务到回收站，快速删除</li>
+              <li>拖拽任务到文件夹，灵活分类整理</li>
+            </ul>
+          </div>
+          <div class="feature-detail-card">
+            <h4>技术实现</h4>
+            <p>基于 HTML5 Drag and Drop API 实现流畅的拖拽体验，无需额外的鼠标点击，通过直观的视觉拖放动作即可完成复杂的任务状态调整，降低操作成本，提升使用效率。</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- 功能块4: 文件夹分类 -->
+      <div class="feature-block">
+        <div class="feature-block-header">
+          <svg class="feature-block-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path>
           </svg>
-          <h3>回收站</h3>
-          <p>误删任务可恢复，支持清空回收站，给你的操作多一份保障。</p>
+          <div class="feature-block-title-group">
+            <h3>文件夹分类管理</h3>
+            <p>自定义文件夹，分类管理不同类型的任务</p>
+          </div>
         </div>
-        <div class="feature-card">
-          <svg class="feature-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <div class="feature-content">
+          <div class="feature-detail-card">
+            <h4>核心特性</h4>
+            <ul class="feature-list">
+              <li>创建自定义文件夹，如"工作"、"个人"、"项目A"</li>
+              <li>拖拽任务到指定文件夹，快速归类</li>
+              <li>点击文件夹筛选，查看该分类下所有任务</li>
+              <li>一键删除文件夹，任务自动移至未分类</li>
+            </ul>
+          </div>
+          <div class="feature-detail-card">
+            <h4>应用场景</h4>
+            <p>适用于多项目并行的工作环境。将不同项目的任务分门别类，如"产品开发"、"市场营销"、"客户支持"等，每个文件夹下独立管理，任务一目了然，工作效率翻倍。</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- 功能块5: 回收站与恢复 -->
+      <div class="feature-block">
+        <div class="feature-block-header">
+          <svg class="feature-block-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polyline points="3 6 5 6 21 6"></polyline>
+            <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+            <line x1="10" y1="11" x2="10" y2="17"></line>
+            <line x1="14" y1="11" x2="14" y2="17"></line>
+          </svg>
+          <div class="feature-block-title-group">
+            <h3>回收站保护机制</h3>
+            <p>误删可恢复，数据安全有保障</p>
+          </div>
+        </div>
+        <div class="feature-content">
+          <div class="feature-detail-card">
+            <h4>安全特性</h4>
+            <ul class="feature-list">
+              <li>删除任务进入回收站，而非直接消失</li>
+              <li>回收站中可查看所有已删除任务</li>
+              <li>支持一键恢复，任务完璧归赵</li>
+              <li>永久删除功能，彻底清理无用数据</li>
+            </ul>
+          </div>
+          <div class="feature-detail-card">
+            <h4>用户价值</h4>
+            <p>再也不用担心误删任务的尴尬。回收站就像一个安全网，让你在探索和整理任务时更加大胆。即使不小心删除了重要任务，也可以随时从回收站中恢复，无需重新创建。</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- 功能块6: 主题与个性化 -->
+      <div class="feature-block">
+        <div class="feature-block-header">
+          <svg class="feature-block-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
             <circle cx="12" cy="12" r="5"></circle>
             <path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"></path>
           </svg>
-          <h3>暗黑模式</h3>
-          <p>支持明暗主题切换，保护你的眼睛，适应不同使用场景。</p>
+          <div class="feature-block-title-group">
+            <h3>明暗主题切换</h3>
+            <p>适配不同使用环境，保护你的眼睛</p>
+          </div>
         </div>
-        <div class="feature-card">
-          <svg class="feature-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect>
-            <path d="M8 21h8M12 17v4"></path>
+        <div class="feature-content">
+          <div class="feature-detail-card">
+            <h4>深色模式 🌙</h4>
+            <p>在昏暗环境下使用，深色背景减少屏幕对眼睛的刺激。程序员、夜猫子、深夜工作者必备，有效降低视觉疲劳，保护视力健康。</p>
+          </div>
+          <div class="feature-detail-card">
+            <h4>浅色模式 ☀️</h4>
+            <p>明亮环境下使用，高对比度设计确保文字清晰可读。适合白天办公环境，减少屏幕反光，提供舒适的阅读体验。</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 场景应用 -->
+  <section class="scenario-section" id="scenarios">
+    <div class="container">
+      <h2 class="section-title">适用场景</h2>
+      <p class="section-desc">无论你是职场人士、学生还是自由职业者，JustDo 都能成为你的效率利器</p>
+
+      <div class="scenario-grid">
+        <div class="scenario-card">
+          <svg class="scenario-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect>
+            <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path>
           </svg>
-          <h3>跨平台</h3>
-          <p>支持 Windows 和 macOS 系统，随时随地管理你的任务。</p>
+          <h3>职场办公</h3>
+          <p>管理工作项目、追踪同事协作进度、规划每日工作安排。配合文件夹功能，可以按项目或部门分类任务，让繁杂的工作井然有序。</p>
+        </div>
+
+        <div class="scenario-card">
+          <svg class="scenario-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path>
+            <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path>
+          </svg>
+          <h3>个人生活</h3>
+          <p>规划购物清单、记录生活琐事、设定健身目标。重要紧急标记帮助你区分生活的主次，不再被琐事牵着走。</p>
+        </div>
+
+        <div class="scenario-card">
+          <svg class="scenario-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path>
+            <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path>
+          </svg>
+          <h3>学生学习</h3>
+          <p>管理课程作业、追踪论文进度、规划复习计划。设置截止日期提醒，避免错过任何提交期限，学习效率显著提升。</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 优势对比 -->
+  <section class="comparison-section" id="comparison">
+    <div class="container">
+      <h2 class="section-title">为什么选择 JustDo</h2>
+      <p class="section-desc">简洁设计，专注核心功能，拒绝臃肿</p>
+
+      <table class="comparison-table">
+        <thead>
+          <tr>
+            <th>功能特性</th>
+            <th>JustDo</th>
+            <th>其他待办应用</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>界面复杂度</td>
+            <td class="highlight">简洁专注，单一视图</td>
+            <td>功能堆砌，界面复杂</td>
+          </tr>
+          <tr>
+            <td>学习成本</td>
+            <td class="highlight">零学习成本，立即上手</td>
+            <td>需要阅读教程才能使用</td>
+          </tr>
+          <tr>
+            <td>资源占用</td>
+            <td class="highlight">轻量级设计，快速响应</td>
+            <td>臃肿缓慢，占用内存高</td>
+          </tr>
+          <tr>
+            <td>离线使用</td>
+            <td class="highlight">桌面应用，无需网络</td>
+            <td>依赖网络，功能受限</td>
+          </tr>
+          <tr>
+            <td>隐私安全</td>
+            <td class="highlight">本地存储，数据不上传</td>
+            <td>云端同步，隐私担忧</td>
+          </tr>
+          <tr>
+            <td>拖拽交互</td>
+            <td class="highlight">支持拖拽到侧边栏</td>
+            <td>仅支持拖拽排序</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- 快速入手 -->
+  <section class="quickstart-section">
+    <div class="container">
+      <h2 class="section-title">快速上手</h2>
+      <p class="section-desc">只需简单四步，开始你的效率提升之旅</p>
+
+      <div class="quickstart-grid">
+        <div class="quickstart-card">
+          <div class="quickstart-number">1</div>
+          <h4>下载安装</h4>
+          <p>选择适合你系统的版本，点击下载并安装</p>
+        </div>
+
+        <div class="quickstart-card">
+          <div class="quickstart-number">2</div>
+          <h4>创建任务</h4>
+          <p>在顶部输入框输入任务名称，按回车创建</p>
+        </div>
+
+        <div class="quickstart-card">
+          <div class="quickstart-number">3</div>
+          <h4>标记状态</h4>
+          <p>点击星标或火焰图标，为任务设置优先级</p>
+        </div>
+
+        <div class="quickstart-card">
+          <div class="quickstart-number">4</div>
+          <h4>完成跟踪</h4>
+          <p>点击任务左侧圆圈，标记为已完成</p>
         </div>
       </div>
     </div>
@@ -576,6 +1019,7 @@
       <div class="footer-links">
         <a href="https://github.com/bainano/JustDo" target="_blank">GitHub</a>
         <a href="#features">功能</a>
+        <a href="#scenarios">场景</a>
         <a href="#download">下载</a>
       </div>
     </div>
