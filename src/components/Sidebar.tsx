@@ -30,9 +30,13 @@ export default function Sidebar() {
   const setSelectedCategoryId = useTaskStore((s) => s.setSelectedCategoryId);
   const deleteCategory = useTaskStore((s) => s.deleteCategory);
   const updateTask = useTaskStore((s) => s.updateTask);
+  const toggleUrgent = useTaskStore((s) => s.toggleUrgent);
+  const toggleImportant = useTaskStore((s) => s.toggleImportant);
+  const moveToTrash = useTaskStore((s) => s.moveToTrash);
   const sidebarOpen = useTaskStore((s) => s.sidebarOpen);
   const toggleSidebar = useTaskStore((s) => s.toggleSidebar);
   const [dragOverCategoryId, setDragOverCategoryId] = useState<string | null>(null);
+  const [dragOverNavId, setDragOverNavId] = useState<string | null>(null);
 
   const counts = useMemo(() => {
     const active = tasks.filter((t) => !t.inTrash);
@@ -75,6 +79,47 @@ export default function Sidebar() {
     }
   };
 
+  const handleNavDragOver = (e: React.DragEvent, navId: string) => {
+    e.preventDefault();
+    e.dataTransfer.dropEffect = 'move';
+    setDragOverNavId(navId);
+  };
+
+  const handleNavDragLeave = () => {
+    setDragOverNavId(null);
+  };
+
+  const handleNavDrop = (e: React.DragEvent, navId: string) => {
+    e.preventDefault();
+    setDragOverNavId(null);
+    const taskId = e.dataTransfer.getData('text/plain');
+    if (!taskId) return;
+
+    const task = tasks.find(t => t.id === taskId);
+    if (!task) return;
+
+    switch (navId) {
+      case 'urgent':
+        if (!task.urgent) {
+          toggleUrgent(taskId);
+          showToast('已标记为紧急', { type: 'success' });
+        }
+        break;
+      case 'important':
+        if (!task.important) {
+          toggleImportant(taskId);
+          showToast('已标记为重要', { type: 'success' });
+        }
+        break;
+      case 'trash':
+        if (!task.inTrash) {
+          moveToTrash(taskId);
+          showToast('已移到回收站', { type: 'info' });
+        }
+        break;
+    }
+  };
+
   return (
     <>
       <aside
@@ -100,17 +145,23 @@ export default function Sidebar() {
             const Icon = iconMap[item.icon];
             const isActive = currentView === item.id && selectedCategoryId === null;
             const count = counts[item.id];
+            const isDragOver = dragOverNavId === item.id;
+            const canDrop = item.id === 'urgent' || item.id === 'important' || item.id === 'trash';
 
             return (
               <button
                 key={item.id}
                 onClick={() => handleNavClick(item.id)}
+                onDragOver={canDrop ? (e) => handleNavDragOver(e, item.id) : undefined}
+                onDragLeave={canDrop ? handleNavDragLeave : undefined}
+                onDrop={canDrop ? (e) => handleNavDrop(e, item.id) : undefined}
                 className={cn(
                   'w-full flex items-center gap-3 px-3 py-2 text-sm rounded transition-colors duration-150'
                 )}
                 style={{
-                  backgroundColor: isActive ? 'var(--bg-tertiary)' : 'transparent',
-                  color: isActive ? 'var(--text-primary)' : 'var(--text-tertiary)'
+                  backgroundColor: isDragOver ? 'rgba(59, 130, 246, 0.15)' : (isActive ? 'var(--bg-tertiary)' : 'transparent'),
+                  color: isActive ? 'var(--text-primary)' : 'var(--text-tertiary)',
+                  boxShadow: isDragOver ? '0 0 0 1px dashed #3b82f6' : 'none'
                 }}
               >
                 <Icon
